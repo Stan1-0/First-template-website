@@ -22,10 +22,18 @@ def register(request):
         password2 = request.POST['repeat-password']
         
         if password == password2:
-            if User.object.filter(email=email).exists():
+            if User.objects.filter(email=email).exists():
                 messages.info(request, 'Email has already been used')
-            
-        
-        
-        
-    return render(request, 'register.html')
+                return redirect('register')
+            elif User.objects.filter(username=username).exists():
+                messages.info(request, 'Username has already been taken')
+                return redirect('register')
+            else:
+                user = User.objects.create_user(username=username, password=password, email=email)
+                user.save()
+                return redirect('login')
+        else:
+            messages.info(request, 'Your passwords dont match')
+            return redirect('register')
+    else:
+        return render(request, 'register.html')
