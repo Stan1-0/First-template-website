@@ -40,8 +40,8 @@ def register(request):
     
 def login(request):
     if request.method == 'POST':
-        username = request.POST['Username']
-        password = request.POST['Password']
+        username = request.POST['username']
+        password = request.POST['password']
         
         user = auth.authenticate(username=username, password=password)
         
