@@ -9,6 +9,7 @@ def index(request):
     features = Feature.objects.all()
     return render(request, 'index.html', {'features': features} )
 
+
 def counter(request):
     text = request.POST['text']
     amount_of_words = len(text.split())
